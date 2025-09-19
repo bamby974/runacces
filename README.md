@@ -257,12 +257,14 @@ Composants réutilisables (access‑first) :
 
 ## Références
 - [CHANGELOG](CHANGELOG.md)
-- Pensez à rédiger des messages de commit clairs et descriptifs pour faciliter le suivi du projet.
+- Pensez à rédiger des messages de commit clairs et descriptifs.
 
 ---
 
 ## Documents
 - [Bonjour RUN'Accès](docs/bonjour.md)
+
+
 
 ---
 
