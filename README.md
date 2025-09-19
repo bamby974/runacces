@@ -264,8 +264,6 @@ Composants réutilisables (access‑first) :
 ## Documents
 - [Bonjour RUN'Accès](docs/bonjour.md)
 
-
-
 ---
 
 ## 📄 Licence
