@@ -249,9 +249,14 @@ Composants réutilisables (access‑first) :
 ---
 
 ## 🤝 Contribution
-1. Fork du repo → branche `feature/<nom>`  
-2. PR avec description claire (avant/après, captures)  
+1. Fork du repo → branche `feature/<nom>`
+2. PR avec description claire (avant/après, captures)
 3. Respect des règles d’accessibilité et du design system
+
+---
+
+## Documents
+- [Bonjour RUN'Accès](docs/bonjour.md)
 
 ---
 
