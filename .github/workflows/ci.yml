@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:    # ← pour avoir le bouton "Run workflow"
   pull_request:
   push:
     branches: [ main ]
@@ -15,12 +16,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      # Setup Node + cache uniquement si le repo contient un package.json
+      - name: Setup Node
+        if: ${{ hashFiles('**/package.json') != '' }}
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
+          # si tu as un lockfile plus tard, le cache l'utilisera
+          cache-dependency-path: |
+            **/package-lock.json
+            **/npm-shrinkwrap.json
+            **/yarn.lock
 
-      # Exécuter les commandes npm UNIQUEMENT si un package.json existe
       - name: Install
         if: ${{ hashFiles('**/package.json') != '' }}
         run: npm ci || npm install
