@@ -21,7 +21,7 @@ jobs:
           cache: npm
 
       # N'exécute ces étapes que s'il existe au moins un package.json
-      - name: Install
+           - name: Install
         if: ${{ hashFiles('**/package.json') != '' }}
         run: npm ci || npm install
 
