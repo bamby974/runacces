@@ -1,5 +1,8 @@
 # RUN’Accès – Application mobile inclusive (PMR & malvoyants) – La Réunion
 
+[![CI](https://github.com/bamby974/runacces/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bamby974/runacces/actions/workflows/ci.yml)
+
+
 > **Mission.** RUN’Accès est une application **React Native (Expo, TypeScript)** qui facilite la **mobilité**, l’**autonomie** et l’**inclusion** des **personnes à mobilité réduite (PMR)** et **malvoyantes** à **La Réunion**.  
 > Fonctionnalités clés : **carte & lieux accessibles**, **itinéraires accessibles**, **réservation de transport adapté**, **démarches administratives assistées**, **réseau local (associations/pros/événements)**, **signalements communautaires**, **SOS**, et **assistant vocal IA** (FR / créole réunionnais / EN).
 
