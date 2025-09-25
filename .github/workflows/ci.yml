@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,12 +17,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: npm
+
+      # Exécuter les commandes uniquement si un package.json existe
       - name: Install
+        if: ${{ hashFiles('**/package.json') != '' }}
         run: npm ci || npm install
+
       - name: Lint (if present)
+        if: ${{ hashFiles('**/package.json') != '' }}
         run: npm run lint --if-present
+
       - name: Test (if present)
+        if: ${{ hashFiles('**/package.json') != '' }}
         run: npm test --if-present
+
       - name: Build (if present)
+        if: ${{ hashFiles('**/package.json') != '' }}
         run: npm run build --if-present
