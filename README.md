@@ -112,14 +112,28 @@
 ---
 
 ## 🏗 Architecture & stack
-- **Mobile** : React Native **Expo** (TypeScript).  
-- **État** : Zustand ou Redux Toolkit + **React Query**.  
-- **Carto** : MapLibre *ou* Google Maps (tuiles vecteur, POI, couches accessibilité).  
-- **Backend** : **Supabase** (Auth, Postgres, Realtime, Storage).  
-- **IA** : wrappers `tts`, `stt`, `vision`, `routing`, `accessibility`.  
-- **Offline** : SQLite/SecureStore pour cache POI/fiches/itinéraires récents.  
-- **i18n** : FR (par défaut), créole RUN, EN.  
+- **Mobile** : React Native **Expo** (TypeScript).
+- **État** : Zustand ou Redux Toolkit + **React Query**.
+- **Carto** : MapLibre *ou* Google Maps (tuiles vecteur, POI, couches accessibilité).
+- **Backend** : **Supabase** (Auth, Postgres, Realtime, Storage).
+- **IA** : wrappers `tts`, `stt`, `vision`, `routing`, `accessibility`.
+- **Offline** : SQLite/SecureStore pour cache POI/fiches/itinéraires récents.
+- **i18n** : FR (par défaut), créole RUN, EN.
 - **Qualité** : ESlint, Prettier, tests (unit/E2E), check‑list accessibilité.
+
+### Arborescence du socle Expo/Supabase
+```
+api/                    # Clients externes (Supabase, API REST, etc.)
+app/                    # Routes Expo Router (home, places, ...)
+components/             # Composants UI réutilisables (à compléter)
+lib/                    # Types, helpers métiers et utilitaires
+store/                  # Stores globaux (Zustand/Redux) – à définir
+supabase/
+  ├─ migrations/        # Scripts SQL versionnés (exécution via Supabase Studio)
+  ├─ seed/              # Jeux de données d'exemple
+  └─ taxonomy/          # Référentiels (catégories & sous-catégories)
+scripts/                # Outils CLI (seed, synchronisation, ...)
+```
 
 ---
 
@@ -134,7 +148,7 @@
 ### Installation
 ```bash
 git clone <repo-url>
-cd run-acces
+cd runacces
 npm install
 cp .env.example .env
 # Renseigner les variables (voir section Configuration)
@@ -142,23 +156,21 @@ cp .env.example .env
 
 ### Lancer en local
 ```bash
-npm run dev    # démarre Expo
+npm run start            # démarre Expo Router en mode développement
 # Scanner le QR code dans Expo Go (Android/iOS) ou lancer iOS/Android emulator
+# Option : `npm run web` pour ouvrir la version web (Expo Web)
 ```
 
 ---
 
 ## 🔧 Configuration (.env)
 ```bash
-EXPO_PUBLIC_SUPABASE_URL=
-EXPO_PUBLIC_SUPABASE_ANON_KEY=
-EXPO_PUBLIC_MAP_STYLE_URL=             # MapLibre (facultatif)
-EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=       # si Google Maps
-EXPO_PUBLIC_I18N_DEFAULT=fr
-EXPO_PUBLIC_VOICE_WAKE_WORD=run-acces
-EXPO_PUBLIC_FEATURE_OFFLINE=true
-EXPO_PUBLIC_ANALYTICS_OPT_IN=false
+EXPO_PUBLIC_SUPABASE_URL=https://<id-projet>.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
+
+> ℹ️ Les variables Expo doivent commencer par `EXPO_PUBLIC_` pour être accessibles dans l'app. Ajoutez les clés complémentaires
+> (carto, analytics, etc.) au même format lorsque les services seront intégrés.
 
 ---
 
@@ -166,27 +178,25 @@ EXPO_PUBLIC_ANALYTICS_OPT_IN=false
 ```json
 {
   "start": "expo start",
-  "android": "expo run:android",
-  "ios": "expo run:ios",
-  "dev": "expo start -c",
+  "android": "expo start --android",
+  "ios": "expo start --ios",
+  "web": "expo start --web",
   "lint": "eslint .",
-  "test": "jest",
-  "e2e": "detox test",
-  "seed": "ts-node scripts/seed.ts",
-  "format": "prettier --write ."
+  "typecheck": "tsc --noEmit"
 }
 ```
 
 ---
 
 ## 🌱 Jeux de données (seed)
-- **Places** : 20 lieux couvrant toutes les catégories/sous‑catégories.  
-- **Reports** : 10 signalements (dont photos “marches/rampe”).  
-- **Transport** : 3 opérateurs + 5 réservations mock.  
-- **Guides** : 5 démarches (CMI, carte stationnement, aide transport…).  
-- **Events** : 3 événements accessibles.
+Le dossier [`supabase/seed`](supabase/seed) contient des scripts SQL prêts à être exécutés dans Supabase Studio.
 
-Exécution : `npm run seed` (fichier `scripts/seed.ts`).
+1. Ouvrir **Supabase Studio** → onglet **SQL Editor**.
+2. Coller le contenu de `supabase/migrations/001_init.sql`, exécuter pour créer la table `places`.
+3. Coller le contenu de `supabase/seed/001_taxonomy_and_places.sql`, exécuter pour insérer les premières données.
+4. Vérifier les enregistrements dans l'onglet **Table editor**.
+
+> 📌 Les fichiers contiennent des commentaires `TODO` à compléter avec la taxonomie officielle et des données enrichies.
 
 ---
 
