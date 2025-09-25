@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "updatedAt": "2024-05-01",
+  "categories": [
+    {
+      "code": "services_publics",
+      "label": "Services publics",
+      "subcategories": [
+        {
+          "code": "tourisme",
+          "label": "Tourisme"
+        },
+        {
+          "code": "administration",
+          "label": "Administration",
+          "todo": "Remplacer par la liste exacte issue du PDF"
+        }
+      ]
+    },
+    {
+      "code": "loisirs",
+      "label": "Loisirs",
+      "subcategories": [
+        {
+          "code": "parcs_jardins",
+          "label": "Parcs et jardins"
+        },
+        {
+          "code": "culture",
+          "label": "Culture",
+          "todo": "Compléter selon la taxonomie officielle"
+        }
+      ]
+    }
+  ],
+  "todo": "Compléter toutes les catégories et sous-catégories telles que définies dans la taxonomie RUN'Accès."
+}
